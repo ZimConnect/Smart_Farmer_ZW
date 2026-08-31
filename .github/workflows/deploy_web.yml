@@ -1,0 +1,42 @@
+name: Deploy Web
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      
+      - name: Check we are in root
+        run: |
+          pwd
+          ls -la
+          cat pubspec.yaml | head -5
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+      
+      - name: Get packages
+        run: flutter pub get
+      
+      - name: Build web
+        run: flutter build web --release --base-href /Smart_Farmer_ZW/
+      
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
