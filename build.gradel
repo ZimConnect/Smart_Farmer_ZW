@@ -1,1 +1,21 @@
 
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace "zw.smartfarmer.app"
+    compileSdk flutter.compileSdkVersion
+
+    defaultConfig {
+        applicationId "zw.smartfarmer.app"
+        minSdk 23
+        targetSdk flutter.targetSdkVersion
+        versionCode flutter.versionCode
+        versionName flutter.versionName
+    }
+}
+
+flutter { source "../.." }
