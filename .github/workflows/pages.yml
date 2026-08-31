@@ -15,8 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.22.0'
+  with:
+    flutter-version: '3.24.5'  # newer version
+    channel: 'stable'
       
       - run: flutter pub get
       - run: flutter build web --release --base-href /Smart_Farmer_ZW/
