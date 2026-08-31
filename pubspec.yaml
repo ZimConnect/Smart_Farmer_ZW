@@ -6,11 +6,12 @@ version: 1.0.0+1
 environment:
   sdk: '>=3.3.0 <4.0.0'
 
+
 dependencies:
   flutter:
     sdk: flutter
   
-  # Core
+  # Core - pinned versions that work
   drift: ^2.18.2
   drift_sqflite: ^2.4.2
   sqflite: ^2.3.3
@@ -33,12 +34,7 @@ dependencies:
   flutter_material_pickers: ^3.0.2
   table_calendar: ^3.1.3
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  drift_dev: ^2.18.2
-  build_runner: ^2.4.13
-  flutter_lints: ^4.0.0
+dependency_overrides:
 
 flutter:
   uses-material-design: true
