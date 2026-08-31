@@ -1,26 +1,19 @@
-name: smart_farmer_zw
-description: Smart Farmer ZW - Zimbabwe-focused livestock, crops, breeding and farm management.
-publish_to: "none"
-version: 1.0.0+1
-
-environment:
-  sdk: ">=3.3.0 <4.0.0"
-
-dependencies:
-  flutter:
-    sdk: flutter
-  cupertino_icons: ^1.0.8
-  shared_preferences: ^2.5.3
-  intl: ^0.19.0
-  flutter_local_notifications: ^19.4.1
-  timezone: ^0.10.1
-  in_app_purchase: ^3.2.3
-  uuid: ^4.5.1
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^5.0.0
-
-flutter:
-  uses-material-design: true
+workflows:
+  android-release:
+    name: Android Release Build
+    max_build_duration: 120
+    instance_type: mac_mini  # <- CHANGED THIS
+    environment:
+      flutter: stable
+    scripts:
+      - name: Install dependencies
+        script: |
+          flutter pub get
+      - name: Flutter analyze
+        script: |
+          flutter analyze
+      - name: Build APK
+        script: |
+          flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
