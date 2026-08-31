@@ -5,6 +5,10 @@ on:
   push:
     branches: [ main ]
 
+defaults:
+  run:
+    working-directory: .  # <-- FORCE ALL COMMANDS TO RUN IN ROOT
+
 jobs:
   build-android:
     runs-on: ubuntu-latest
@@ -12,6 +16,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      
+    - name: List files - DEBUG
+      run: ls -la  # <-- This will show us if pubspec.yaml is really there
       
     - name: Setup Java
       uses: actions/setup-java@v4
@@ -36,4 +43,3 @@ jobs:
       with:
         name: Smart-Farmer-ZW-v1.0.apk
         path: build/app/outputs/flutter-apk/app-release.apk
-        if-no-files-found: error
