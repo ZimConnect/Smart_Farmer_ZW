@@ -1,29 +1,57 @@
-<manifest package="com.zimconnect.smartfarmerzw">
-   <uses-permission android:name="android.permission.INTERNET"/>
-   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-   <uses-permission android:name="android.permission.VIBRATE"/>
-   <uses-permission android:name="android.permission.WAKE_LOCK"/>
+<manifest package="com.zimconnect.smartfarmerzw"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-   <application
-       android:name="${applicationName}"
-       android:label="Smart Farmer ZW"
-       android:icon="@mipmap/ic_launcher">
-       <activity
-           android:name=".MainActivity"
-           android:exported="true"
-           android:launchMode="singleTop"
-           android:theme="@style/LaunchTheme"
-           android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-           android:hardwareAccelerated="true"
-           android:windowSoftInputMode="adjustResize">
-           <meta-data
-             android:name="io.flutter.embedding.android.NormalTheme"
-             android:resource="@style/NormalTheme"
-           />
-           <intent-filter>
-               <action android:name="android.intent.action.MAIN"/>
-               <category android:name="android.intent.category.LAUNCHER"/>
-           </intent-filter>
-       </activity>
-   </application>
+    <!-- INTERNET: Needed for billing and future sync -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
+    <!-- NOTIFICATIONS: For farm tasks - vaccination, feeding reminders -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    
+    <!-- BILLING: CRITICAL FOR PRO VERSION -->
+    <uses-permission android:name="com.android.vending.BILLING"/>
+
+    <application
+        android:name="${applicationName}"
+        android:label="Smart Farmer ZW"
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+            />
+
+            <!-- Splash screen drawable -->
+            <meta-data
+              android:name="io.flutter.embedding.android.SplashScreenDrawable"
+              android:resource="@drawable/launch_background"
+            />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        
+        <!-- Needed for flutter_local_notifications -->
+        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+
+    </application>
 </manifest>
