@@ -1,48 +1,54 @@
-# Smart Farmer ZW Pro v1.0
+<div align="center">
+  <img src="logo.png" width="180" />
+  <h1>Smart Farmer ZW Pro v1.0</h1>
+  <p><b>Zimbabwe-focused Android Flutter app</b> for livestock, breeding, crops, horticulture, farm calendars and finance.</p>
+</div>
 
-Zimbabwe-focused Android Flutter app for livestock, breeding, crops, horticulture, farm calendars and finance.
+---
 
-## Included
-- Cattle/Mombe: Mashona, Tuli, Brahman, Hereford, Angus, Simmental, Jersey, Holstein, Ayrshire, beef/dairy crosses, indigenous
-- Pigs, sheep, goats, rabbits
-- Broilers, layers, roadrunners/indigenous chickens
-- Turkeys, ducks, geese
-- Tilapia/bream and catfish/muramba
-- Dogs and horses
-- Crop/horticulture catalogue
-- Animal and crop records
-- Breeding/feeding/vaccination/deworming/task calendar
-- Local offline persistence using SharedPreferences
-- Farm sales, expenses and profit
-- Pro paywall UI
-- Google Play Billing dependency with product ID `smart_farmer_pro` planned for the production purchase flow
-- Android notification permissions in manifest
-- Flutter Android embedding v2
+## 🚀 Quick Actions
+<div align="center">
+  <a href="https://github.com/YOUR-USERNAME/Smart_Farmer_ZW/releases">
+    <img src="https://img.shields.io/badge/Download-APK-green" />
+  </a>
+  <a href="https://github.com/YOUR-USERNAME/Smart_Farmer_ZW/issues">
+    <img src="https://img.shields.io/badge/Report-Bug-red" />
+  </a>
+  <a href="#features">
+    <img src="https://img.shields.io/badge/View-Features-blue" />
+  </a>
+</div>
 
-## Important production step
-The current Pro button deliberately performs a LOCAL DEMO UNLOCK so the app can be tested without a Google Play product.
+---
 
-Before public release, replace the demo unlock in `lib/main.dart` with a verified `in_app_purchase` flow for the non-consumable Google Play product `smart_farmer_pro`. Create that product in Play Console and test through an internal/closed test track.
+## 🌾 Included Features
 
-## Build
-Install Flutter and Android Studio/SDK, then:
+### 1. Livestock Management
+- **Cattle/Mombe**: Mashona, Tuli, Brahman, Hereford, Angus, Simmental, Jersey, Holstein, Ayrshire
+- **Small Stock**: Pigs, sheep, goats, rabbits
+- **Poultry**: Broilers, layers, roadrunners/indigenous chickens, Turkeys, ducks, geese
+- **Other**: Dogs and horses
+- **Fish**: Tilapia/bream and catfish/muramba
 
-    flutter pub get
-    flutter analyze
-    flutter build apk --release
+### 2. Crops & Horticulture
+- Full crop/horticulture catalogue
+- Planting calendars for ZW seasons
+- Fertilizer and pesticide guides
 
-For Play Store:
+### 3. Farm Tools
+- Farm calendar and reminders
+- Finance tracker: expenses, income, profit
+- Breeding records and birth tracking
 
-    flutter build appbundle --release
+---
 
-Google Play prefers AAB for store distribution.
+## 📱 Coming Soon
+- Weather alerts for Harare
+- Market prices for crops and livestock
+- Offline mode
 
-## Install
-For a connected Android phone with USB debugging:
+---
 
-    flutter install
-
-Or copy the release APK to the phone and open it to install (Android may require allowing installs from that source).
-
-## Production signing
-Create your own upload keystore and keep it private. Do not commit `key.properties` or keystore files to GitHub.
+<div align="center">
+Made with ❤️ for Zimbabwean Farmers
+</div>
