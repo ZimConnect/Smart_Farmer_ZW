@@ -1,51 +1,52 @@
-<manifest package="com.zimconnect.smartfarmerzw"
+<manifest package="zw.zimconnect.smartfarmerzw"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- INTERNET: Needed for billing and future sync -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    
-    <!-- NOTIFICATIONS: For farm tasks - vaccination, feeding reminders -->
+
+    <!-- NOTIFICATIONS: For farm tasks, vaccination, feeding reminders -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    
+
     <!-- BILLING: CRITICAL FOR PRO VERSION -->
     <uses-permission android:name="com.android.vending.BILLING"/>
 
     <application
-        android:name="${applicationName}"
         android:label="Smart Farmer ZW"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".MainActivity"
+            android:name="io.flutter.embedding.android.FlutterActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
-            
-            <meta-data
-              android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-            />
 
-            <!-- Splash screen drawable -->
+            <!-- Specifies normal theme to be applied to Flutter activity -->
             <meta-data
-              android:name="io.flutter.embedding.android.SplashScreenDrawable"
-              android:resource="@drawable/launch_background"
-            />
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
+
+            <!-- Displays launch screen drawable until Flutter app is initialized -->
+            <meta-data
+                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+                android:resource="@drawable/launch_background"
+                />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        
-        <!-- Needed for flutter_local_notifications -->
+
+        <!-- Needed for Flutter local_notifications -->
         <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
