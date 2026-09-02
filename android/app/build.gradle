@@ -6,14 +6,14 @@ plugins {
 
 android {
     namespace 'zw.zimconnect.smartfarmerzw'
-    compileSdk 34
+    compileSdk flutter.compileSdkVersion
 
     defaultConfig {
         applicationId 'zw.zimconnect.smartfarmerzw'
-        minSdkVersion 21
-        targetSdkVersion 34
-        versionCode 1
-        versionName '1.0'
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutter.versionCode
+        versionName flutter.versionName
     }
 
     buildTypes {
