@@ -25,7 +25,6 @@ dependencies:
   pdf: ^3.11.3
   printing: ^10.1.2
   flutter_local_notifications: ^18.0.1
-  flutter_app_name: ^0.0.3
   in_app_purchase: ^3.1.14 # NEW FOR PRO
 
 dev_dependencies:
