@@ -1,4 +1,4 @@
-<manifest package="com.zimconnect.smartfarmerzw"
+    <manifest package="zw.zimconnect.smartfarmerzw"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- INTERNET: Needed for billing and future sync -->
