@@ -3,32 +3,38 @@ name: Build Android AAB
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.24.0'
-      
-      - name: Decode Keystore
-        run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/key/smartfarmerzw.keystore
-      
-      - name: Create key.properties
-        run: |
-          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
-          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
-          echo "storeFile=key/smartfarmerzw.keystore" >> android/key.properties
-      
-      - name: Build AAB
-        run: flutter build appbundle --release
-      
-      - name: Upload AAB
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release.aab
-          path: build/app/outputs/bundle/release/app-release.aab
+    - uses: actions/checkout@v4
+    
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.22.0'
+    
+    - name: Decode Keystore
+      run: |
+        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/key/smartfarmerzw.keystore
+    
+    - name: Create key.properties
+      run: |
+        echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
+        echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+        echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+        echo "storeFile=key/smartfarmerzw.keystore" >> android/key.properties
+    
+    - name: Install dependencies
+      run: flutter pub get
+    
+    - name: Build AAB
+      run: flutter build appbundle --release
+    
+    - name: Upload AAB
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release
+        path: build/app/outputs/bundle/release/app-release.aab
