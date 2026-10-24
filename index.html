@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14532d">
+<title>Smart Farmer ZW Pro</title>
+<link rel="icon" href="logo.png">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Roboto,Arial;background:#f0f5f0;color:#222;line-height:1.5}
+header{background:linear-gradient(135deg,#0a3d1f,#2e8b57);color:white;padding:16px 12px;text-align:center}
+.brand{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.brand img{width:68px;height:68px;object-fit:contain;background:white;border-radius:14px;padding:5px}
+header h1{margin:0;font-size:26px} header .sub{font-size:13px;opacity:.9;margin-top:4px}
+nav{display:flex;gap:6px;padding:10px 8px;background:#fff;overflow-x:auto;position:sticky;top:0;z-index:20;border-bottom:2px solid #e5e7eb}
+nav button{border:1px solid #c8e6c9;border-radius:20px;padding:10px 14px;background:#e8f5e9;color:#14532d;font-weight:700;white-space:nowrap;cursor:pointer;flex-shrink:0;font-size:13px}
+nav button.active{background:#14532d;color:white}
+main{max-width:960px;margin:auto;padding:12px 10px}
+.page{display:none} .page.active{display:block}
+h2{color:#14532d;margin:8px 0 12px;font-size:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.card,.panel{background:white;padding:14px;border-radius:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);overflow-wrap:anywhere}
+.card strong{display:block;font-size:26px;color:#14532d;margin-top:6px}
+label{display:block;font-size:12px;font-weight:800;margin:12px 0 4px;color:#334155;text-transform:uppercase}
+input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5cf;border-radius:10px;font:inherit;background:#fff}
+.action{background:#14532d;color:white;border:0;border-radius:10px;padding:12px 16px;margin-top:10px;font-weight:800;cursor:pointer}
+.secondary{background:#e8f5e9;color:#14532d}
+.item{padding:12px 0;border-bottom:1px solid #eef2ee;word-break:break-word}
+.small{font-size:12px;color:#64748b}
+.table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.table th{background:#e8f5e9;text-align:left;padding:8px 6px}
+.table td{padding:8px 6px;border-top:1px solid #eee;vertical-align:top}
+details{background:#f8fdf8;border:1px solid #e0f0e0;border-radius:10px;padding:10px 12px;margin:10px 0}
+details summary{font-weight:800;color:#14532d;cursor:pointer}
+ul{padding-left:18px}
+footer{text-align:center;padding:24px 12px;color:#64748b;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<div class="brand">
+<img src="logo.png" alt="logo" onerror="this.style.display='none'">
+<div><h1>Smart Farmer ZW</h1><div class="sub">Pro • Zimbabwe Farming Assistant • Offline</div></div>
+</div>
+<div class="sub">Livestock • Breeding • Crops • Vaccines & Dip • Poultry • Horticulture • Finance</div>
+</header>
+<nav id="nav">
+<button class="active" data-p="home">Home</button>
+<button data-p="livestock">Livestock</button>
+<button data-p="breeding">Breeding</button>
+<button data-p="crops">Crops & Fields</button>
+<button data-p="regions">Regions I-V</button>
+<button data-p="planting">Planting Guide</button>
+<button data-p="health">Vaccines & Dip</button>
+<button data-p="poultry">Poultry Guide</button>
+<button data-p="horti">Horticulture</button>
+<button data-p="calendar">Calendar</button>
+<button data-p="finance">Finance</button>
+</nav>
+<main>
+<section id="home" class="page active">
+<h2>Farm Dashboard</h2>
+<div class="cards">
+<div class="card">Livestock Count<strong id="animalCount">0</strong><span class="small">Total</span></div>
+<div class="card">Crop Records<strong id="cropCount">0</strong></div>
+<div class="card">Tasks<strong id="taskCount">0</strong></div>
+<div class="card">Net Balance<strong id="balance">$0.00</strong></div>
+</div>
+<div class="panel"><h3>Welcome, Farmer!</h3><p>Manage Mombe, Mbudzi, Huku, Zvirimwa, Mari offline. Plus Zimbabwe tutorials.</p></div>
+</section>
+
+<section id="livestock" class="page"><h2>Livestock</h2><div class="panel"><label>Animal type</label><select id="animalType"><option>Cattle / Mombe</option><option>Goats / Mbudzi</option><option>Sheep</option><option>Pigs / Nguruve</option><option>Broilers</option><option>Layers</option><option>Roadrunner</option><option>Turkeys</option><option>Ducks</option><option>Rabbits</option></select><label>Breed</label><input id="breed" placeholder="Mashona, Tuli, Brahman"><label>Number</label><input id="animalNumber" type="number" value="1"><label>Notes</label><input id="animalNotes"><button class="action" onclick="addAnimal()">Save</button></div><div class="panel"><h3>My Livestock</h3><div id="animalList"></div></div></section>
+
+<section id="breeding" class="page"><h2>Breeding & Health</h2><div class="panel"><label>Animal ID</label><input id="breedAnimal"><label>Type</label><select id="breedType"><option>Breeding</option><option>Pregnancy</option><option>Vaccination</option><option>Deworming</option><option>Dipping</option></select><label>Date</label><input id="breedDate" type="date"><label>Details</label><textarea id="breedNotes"></textarea><button class="action" onclick="addRecord()">Save</button></div><div class="panel"><h3>History</h3><div id="breedingList"></div></div></section>
+
+<section id="crops" class="page"><h2>Crop & Field Manager</h2><div class="panel"><label>Crop</label><select id="cropType"><option>Maize</option><option>Sorghum / Mhunga</option><option>Rapoko</option><option>Tobacco</option><option>Soya</option><option>Groundnuts</option><option>Tomatoes</option><option>Onions</option><option>Cabbage</option><option>Rape / Covo</option></select><label>Field</label><input id="fieldName"><label>Area ha</label><input id="fieldArea" type="number" step="0.01"><label>Planting date</label><input id="plantDate" type="date"><label>Notes</label><textarea id="cropNotes"></textarea><button class="action" onclick="addCrop()">Save</button></div><div class="panel"><h3>My Fields</h3><div id="cropList"></div></div></section>
+
+<section id="regions" class="page"><h2>Zimbabwe Agro-Ecological Regions I-V</h2><div class="panel"><table class="table"><tr><th>Region</th><th>Rainfall</th><th>Where</th><th>Best</th></tr><tr><td><b>I</b></td><td>>1000mm</td><td>Nyanga, Chimanimani, Chipinge</td><td>Tea, coffee, banana, dairy</td></tr><tr><td><b>II</b></td><td>750-1000mm</td><td>Harare, Marondera, Bindura, Norton</td><td>Maize, tobacco, soya</td></tr><tr><td><b>III</b></td><td>650-800mm</td><td>Kadoma, Gweru, Kwekwe</td><td>Maize, small grains</td></tr><tr><td><b>IV</b></td><td>450-650mm</td><td>Masvingo, Lupane, Zvishavane</td><td>Small grains, goats</td></tr><tr><td><b>V</b></td><td><350mm</td><td>Chiredzi, Beitbridge, Binga</td><td>Goats, game</td></tr></table></div></section>
+
+<section id="planting" class="page"><h2>Planting Times</h2><div class="panel"><table class="table"><tr><th>Crop</th><th>When</th><th>Region</th></tr><tr><td>Maize</td><td>15 Oct-15 Dec</td><td>I-III</td></tr><tr><td>Sorghum Mhunga</td><td>Nov-Dec</td><td>III-V</td></tr><tr><td>Soyabean</td><td>Mid Nov-Early Dec</td><td>I-II</td></tr><tr><td>Tobacco</td><td>Sept-Oct seedbed</td><td>I-II</td></tr></table><details open><summary>Maize Tutorial</summary><ul><li>Winter plough, Compound D 300kg/ha, AN 200kg/ha at 6 weeks</li></ul></details></div></section>
+
+<section id="health" class="page"><h2>Vaccines, Dip & Deworming</h2><div class="panel"><h3>Cattle Dip</h3><table class="table"><tr><th>Month</th><th>Action</th></tr><tr><td>Jan-Feb</td><td>Dip WEEKLY, Deworm</td></tr><tr><td>Mar-May</td><td>Dip every 2 weeks, Lumpy Skin vaccine</td></tr><tr><td>Jun-Aug</td><td>Dip monthly, Anthrax + Blackleg</td></tr><tr><td>Sep-Dec</td><td>Dip WEEKLY again</td></tr></table><h3>Poultry Vaccines</h3><table class="table"><tr><th>Age</th><th>Vaccine</th></tr><tr><td>Day 7</td><td>Newcastle HB1+IB</td></tr><tr><td>Day 14</td><td>Gumboro 1</td></tr><tr><td>Day 21</td><td>Gumboro 2+LaSota</td></tr><tr><td>Day 28</td><td>Fowl Pox</td></tr></table></div></section>
+
+<section id="poultry" class="page"><h2>Poultry Guide ZW</h2><div class="panel"><details open><summary>Broilers Ross 308, Cobb 500</summary><ul><li>0-14d Starter 28% 32°C, 15-35d Grower 24°C, 35-56d Finisher 2kg</li></ul></details><details><summary>Layers Hy-Line</summary><ul><li>16h light, 280-300 eggs/year</li></ul></details><details><summary>Roadrunner Pfuyo yechibhoyi</summary><ul><li>Newcastle every 3 months! Hay box brooder, market 12-16 weeks $8-12</li></ul></details></div></section>
+
+<section id="horti" class="page"><h2>Horticulture Murivo</h2><div class="panel"><table class="table"><tr><th>Crop</th><th>Season</th><th>Days</th></tr><tr><td>Tomato</td><td>Feb-Aug</td><td>90-120</td></tr><tr><td>Onion</td><td>Mar-June</td><td>150</td></tr><tr><td>Cabbage</td><td>All year</td><td>90</td></tr><tr><td>Rape/Covo</td><td>All year</td><td>45</td></tr></table><details><summary>Tomato Harare</summary><ul><li>Nursery Feb transplant March 60x45cm, Compound C 500kg/ha</li></ul></details></div></section>
+
+<section id="calendar" class="page"><h2>Farm Calendar</h2><div class="panel"><label>Task</label><input id="taskName"><label>Date</label><input id="taskDate" type="date"><label>Category</label><select id="taskCategory"><option>Livestock</option><option>Crops</option><option>Vaccination</option><option>Dipping</option></select><button class="action" onclick="addTask()">Save</button></div><div class="panel"><h3>Tasks</h3><div id="taskList"></div></div></section>
+
+<section id="finance" class="page"><h2>Finance</h2><div class="cards"><div class="card">Income<strong id="incomeTotal">$0.00</strong></div><div class="card">Expenses<strong id="expenseTotal">$0.00</strong></div><div class="card">Net<strong id="netTotal">$0.00</strong></div></div><div class="panel"><label>Type</label><select id="moneyType"><option>Income</option><option>Expense</option></select><label>Amount</label><input id="moneyAmount" type="number" step="0.01"><label>Description</label><input id="moneyDescription"><label>Date</label><input id="moneyDate" type="date"><button class="action" onclick="addMoney()">Save</button></div><div class="panel"><h3>Transactions</h3><div id="moneyList"></div></div></section>
+</main>
+<footer>Smart Farmer ZW Pro • Built for Zimbabwe Farmers • 2026 ZimConnect</footer>
+<script>
+const DBKEY='smart_farmer_zw_v2';let db={animals:[],breeding:[],crops:[],tasks:[],money:[]};
+try{const s=localStorage.getItem(DBKEY);if(s)db={...db,...JSON.parse(s)};}catch(e){}
+function save(){localStorage.setItem(DBKEY,JSON.stringify(db));render();}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{
+document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(b.dataset.p).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});
+}));
+function val(id){return document.getElementById(id).value.trim();}
+function addAnimal(){const n=Number(val('animalNumber'));if(!n||n<1){alert('Enter number');return;}db.animals.push({type:val('animalType'),breed:val('breed')||'Not specified',number:n,notes:val('animalNotes'),date:new Date().toISOString()});save();}
+function addRecord(){if(!val('breedAnimal')||!val('breedDate')){alert('ID and date');return;}db.breeding.push({animal:val('breedAnimal'),type:val('breedType'),date:val('breedDate'),notes:val('breedNotes')});save();}
+function addCrop(){if(!val('fieldName')){alert('Field name');return;}db.crops.push({type:val('cropType'),field:val('fieldName'),area:val('fieldArea'),date:val('plantDate'),notes:val('cropNotes')});save();}
+function addTask(){if(!val('taskName')||!val('taskDate')){alert('Task and date');return;}db.tasks.push({name:val('taskName'),date:val('taskDate'),category:val('taskCategory'),done:false});save();}
+function addMoney(){const a=Number(val('moneyAmount'));if(!a||!val('moneyDescription')){alert('Amount and description');return;}db.money.push({type:val('moneyType'),amount:a,description:val('moneyDescription'),date:val('moneyDate')||new Date().toISOString().slice(0,10)});save();}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function list(id,items,fmt,fn){const el=document.getElementById(id);if(!items.length){el.innerHTML='<p class="small">No records yet.</p>';return;}el.innerHTML=items.map((it,i)=>'<div class="item">'+fmt(it,i)+' <button class="action secondary" style="padding:6px 10px;font-size:12px" onclick="'+fn+'('+i+')">Delete</button></div>').join('');}
+function removeRecord(g,i){if(!confirm('Delete?'))return;db[g].splice(i,1);save();}
+function toggleTask(i){db.tasks[i].done=!db.tasks[i].done;save();}
+function money(n){return '$'+Number(n||0).toFixed(2);}
+function render(){document.getElementById('animalCount').textContent=db.animals.reduce((s,a)=>s+Number(a.number||0),0);document.getElementById('cropCount').textContent=db.crops.length;document.getElementById('taskCount').textContent=db.tasks.filter(t=>!t.done).length;const inc=db.money.filter(x=>x.type==='Income').reduce((s,x)=>s+x.amount,0);const exp=db.money.filter(x=>x.type==='Expense').reduce((s,x)=>s+x.amount,0);document.getElementById('balance').textContent=money(inc-exp);document.getElementById('incomeTotal').textContent=money(inc);document.getElementById('expenseTotal').textContent=money(exp);document.getElementById('netTotal').textContent=money(inc-exp);
+list('animalList',db.animals,a=>'<b>'+esc(a.type)+'</b> x'+a.number+'<br>Breed: '+esc(a.breed)+'<br>'+esc(a.notes),'removeAnimal');
+list('breedingList',db.breeding,a=>'<b>'+esc(a.type)+'</b> - '+esc(a.animal)+'<br>Date: '+esc(a.date)+'<br>'+esc(a.notes),'removeBreeding');
+list('cropList',db.crops,c=>'<b>'+esc(c.type)+'</b> - '+esc(c.field)+'<br>'+esc(c.area||'-')+' ha • '+esc(c.date||'')+'<br>'+esc(c.notes),'removeCrop');
+list('taskList',db.tasks,(t,i)=>'<b>'+(t.done?'✓ ':'')+esc(t.name)+'</b><br>'+esc(t.category)+' • Due: '+esc(t.date)+'<br><button class="action secondary" style="padding:6px 10px" onclick="toggleTask('+i+')">'+(t.done?'Incomplete':'Complete')+'</button>','removeTask');
+list('moneyList',db.money,m=>'<b>'+esc(m.type)+'</b>: '+money(m.amount)+'<br>'+esc(m.description)+' • '+esc(m.date),'removeMoney');
+}
+function removeAnimal(i){removeRecord('animals',i)}function removeBreeding(i){removeRecord('breeding',i)}function removeCrop(i){removeRecord('crops',i)}function removeTask(i){removeRecord('tasks',i)}function removeMoney(i){removeRecord('money',i)}
+document.getElementById('breedDate').value=new Date().toISOString().slice(0,10);
+document.getElementById('moneyDate').value=new Date().toISOString().slice(0,10);
+render();
+</script>
+</body>
+</html>
