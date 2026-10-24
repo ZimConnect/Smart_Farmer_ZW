@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Farmer ZW Pro v1.0 - Zimbabwe Farming App</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui, -apple-system, sans-serif}
+  body{background:#f7f9f4;color:#1a2e05}
+  header{background:#1a5d1a;color:white;padding:60px 20px;text-align:center}
+  header img{width:130px;border-radius:50%;border:4px solid #fff;margin-bottom:15px}
+  header h1{font-size:2.4rem;margin-bottom:10px}
+  header p{max-width:700px;margin:0 auto;opacity:.9;font-size:1.1rem}
+  .btn{display:inline-block;margin-top:20px;padding:14px 28px;background:#ffcc00;color:#000;text-decoration:none;font-weight:800;border-radius:30px}
+  .container{max-width:1100px;margin:auto;padding:40px 20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:20px}
+  .card{background:white;border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.07);border-left:6px solid #1a5d1a}
+  .card h3{color:#1a5d1a;margin-bottom:10px}
+  .card ul{padding-left:18px;line-height:1.8}
+  .badge{display:inline-block;background:#e8f5e9;color:#1a5d1a;padding:4px 10px;border-radius:20px;font-size:.8rem;font-weight:700;margin-bottom:10px}
+  footer{background:#111;color:#aaa;text-align:center;padding:30px;margin-top:50px}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" alt="Smart Farmer ZW">
+  <h1>Smart Farmer ZW Pro v1.0</h1>
+  <p>Zimbabwe-focused Android Flutter app for livestock, breeding, crops, horticulture, farm calendars and finance.</p>
+  <a class="btn" href="./web/index.html">🚀 Launch Web App</a>
+  <a class="btn" style="background:white" href="https://github.com/ZimC/Smart_Farmer_ZW">📥 Download APK</a>
+</header>
+
+<div class="container">
+  <h2>🌾 Quick Actions</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="badge">FEATURE 1</span>
+      <h3>🐄 Livestock Management</h3>
+      <ul>
+        <li><b>Cattle:</b> Mashona, Tuli, Brahman, Hereford, Angus, Simmental, Jersey, Holstein, Ayrshire</li>
+        <li><b>Small Stock:</b> Pigs, goats, sheep, rabbits</li>
+        <li><b>Poultry:</b> Broilers, layers, roadrunners, turkeys, ducks, geese</li>
+        <li><b>Other:</b> Dogs and horses</li>
+        <li><b>Fish:</b> Tilapia/bream and catfish/muramba</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="badge">FEATURE 2</span>
+      <h3>🌱 Crops & Horticulture</h3>
+      <ul>
+        <li>Full crop/horticulture catalogue</li>
+        <li>Planting calendars for ZW seasons</li>
+        <li>Fertilizer and pesticide guides</li>
+        <li>Breeding & gestation calculators</li>
+        <li>Feed formulation tools</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="badge">FEATURE 3</span>
+      <h3>📅 Finance & Planning</h3>
+      <ul>
+        <li>Farm income & expense tracking</li>
+        <li>Profitability per animal/crop</li>
+        <li>Reminders for vaccination, dipping</li>
+        <li>Market price tracker</li>
+        <li>Offline mode for rural areas</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="margin-top:50px">📲 How to Install</h2>
+  <div class="card" style="margin-top:20px">
+    <p>1. Click <b>Launch Web App</b> above to use it on phone browser.<br>
+    2. Or clone repo: <code>git clone https://github.com/ZimC/Smart_Farmer_ZW.git</code><br>
+    3. Then: <code>flutter pub get && flutter run</code></p>
+  </div>
+</div>
+
+<footer>
+  Built by ZimConnect • Smart Farmer ZW © 2026 • Made for Zimbabwean Farmers
+</footer>
+
+</body>
+</html>
