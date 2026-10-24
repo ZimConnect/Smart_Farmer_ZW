@@ -1,1 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14532d">
+<title>Smart Farmer ZW Pro</title>
+<link rel="icon" href="logo.png" type="image/png">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f7f3;color:#183323}
+header{background:linear-gradient(135deg,#064e3b,#166534);color:white;padding:20px 12px;text-align:center}
+.brand{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.brand img{width:70px;height:70px;object-fit:contain;background:white;border-radius:12px;padding:4px}
+header h1{font-size:24px;margin:0}
+nav{display:flex;gap:7px;padding:10px;background:white;overflow-x:auto;position:sticky;top:0;z-index:10;border-bottom:1px solid #e5e7eb}
+nav button{border:0;border-radius:8px;padding:12px 16px;background:#e5f5e9;color:#14532d;font-weight:bold;white-space:nowrap;cursor:pointer}
+nav button.active{background:#14532d;color:white}
+main{max-width:900px;margin:auto;padding:15px}
+.page{display:none}
+.page.active{display:block}
+h2{color:#166534}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.card,.panel{background:white;padding:15px;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 7px #0000000c}
+.card strong{display:block;font-size:25px;color:#166534;margin-top:8px}
+label{display:block;font-size:13px;font-weight:bold;margin:12px 0 5px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5cf;border-radius:8px;font:inherit;background:white}
+.action{background:#166534;color:white;border:0;border-radius:8px;padding:12px 14px;margin-top:10px;font-weight:bold;cursor:pointer}
+.secondary{background:#e5f5e9;color:#14532d}
+.item{padding:12px;border-bottom:1px solid #e5e7eb;overflow-wrap:anywhere}
+.small{font-size:12px;color:#64748b}
+footer{text-align:center;padding:20px;color:#64748b}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img src="logo.png" alt="Logo" onerror="this.src='assets/icon/app_icon.png';this.onerror=function(){this.style.display='none'}">
+    <div>
+      <h1>Smart Farmer ZW</h1>
+      <div>Pro • Zimbabwe Farming Assistant</div>
+    </div>
+  </div>
+  <p>Livestock • Crops • Breeding • Farm Finance</p>
+</header>
 
+<nav>
+  <button class="active" onclick="showPage('home',this)">Home</button>
+  <button onclick="showPage('livestock',this)">Livestock</button>
+  <button onclick="showPage('breeding',this)">Breeding</button>
+  <button onclick="showPage('crops',this)">Crops</button>
+  <button onclick="showPage('calendar',this)">Farm Calendar</button>
+  <button onclick="showPage('finance',this)">Finance</button>
+</nav>
+
+<main>
+<section id="home" class="page active">
+  <h2>Farm Dashboard</h2>
+  <div class="cards">
+    <div class="card">Livestock<strong id="animalCount">0</strong></div>
+    <div class="card">Crop Records<strong id="cropCount">0</strong></div>
+    <div class="card">Farm Tasks<strong id="taskCount">0</strong></div>
+    <div class="card">Net Balance<strong id="balance">$0.00</strong></div>
+  </div>
+  <div class="panel">
+    <h3>Welcome, Farmer!</h3>
+    <p>Manage your animals, breeding records, crops, farm tasks and money in one place. Works offline.</p>
+    <p class="small">Records saved in this browser on this device.</p>
+    <button class="action" onclick="showPage('livestock',document.querySelectorAll('nav button')[1])">Add Livestock</button>
+    <button class="action" onclick="showPage('crops',document.querySelectorAll('nav button')[3])">Add Crop</button>
+  </div>
+</section>
+
+<section id="livestock" class="page">
+  <h2>Livestock Management</h2>
+  <div class="panel">
+    <label>Animal type</label>
+    <select id="animalType">
+      <option>Cattle / Mombe</option><option>Goats / Mbudzi</option><option>Sheep</option><option>Pigs / Nguruve</option><option>Broilers</option><option>Layers</option><option>Roadrunner chickens</option><option>Turkeys</option><option>Rabbits</option><option>Fish</option><option>Dogs</option><option>Horses</option>
+    </select>
+    <label>Breed</label>
+    <input id="breed" placeholder="e.g. Mashona, Tuli, Brahman">
+    <label>Number of animals</label>
+    <input id="animalNumber" type="number" min="1" value="1">
+    <label>Notes / identification</label>
+    <input id="animalNotes" placeholder="Tag number, age, health notes">
+    <button class="action" onclick="addAnimal()">Save Livestock</button>
+  </div>
+  <div class="panel"><h3>My Livestock</h3><div id="animalList"></div></div>
+</section>
+
+<section id="breeding" class="page">
+  <h2>Breeding & Health Records</h2>
+  <div class="panel">
+    <label>Animal / tag ID</label>
+    <input id="breedAnimal" placeholder="e.g. Cattle tag 001">
+    <label>Record type</label>
+    <select id="breedType">
+      <option>Breeding</option><option>Pregnancy check</option><option>Expected birth</option><option>Vaccination</option><option>Deworming</option><option>Veterinary visit</option>
+    </select>
+    <label>Date</label>
+    <input id="breedDate" type="date">
+    <label>Details</label>
+    <textarea id="breedNotes" placeholder="Enter details or next appointment"></textarea>
+    <button class="action" onclick="addRecord()">Save Record</button>
+  </div>
+  <div class="panel"><h3>Breeding & Health History</h3><div id="breedingList"></div></div>
+</section>
+
+<section id="crops" class="page">
+  <h2>Crop & Horticulture Manager</h2>
+  <div class="panel">
+    <label>Crop</label>
+    <select id="cropType">
+      <option>Maize</option><option>Tobacco</option><option>Wheat</option><option>Soya beans</option><option>Groundnuts</option><option>Cotton</option><option>Sugar beans</option><option>Tomatoes</option><option>Potatoes</option><option>Onions</option><option>Cabbage</option><option>Vegetables</option><option>Other</option>
+    </select>
+    <label>Field name / location</label>
+    <input id="fieldName" placeholder="e.g. Field A">
+    <label>Area (hectares)</label>
+    <input id="fieldArea" type="number" min="0" step="0.01">
+    <label>Planting date</label>
+    <input id="plantDate" type="date">
+    <label>Notes</label>
+    <textarea id="cropNotes" placeholder="Fertiliser, irrigation, expected harvest"></textarea>
+    <button class="action" onclick="addCrop()">Save Crop</button>
+  </div>
+  <div class="panel"><h3>My Fields</h3><div id="cropList"></div></div>
+</section>
+
+<section id="calendar" class="page">
+  <h2>Farm Calendar & Reminders</h2>
+  <div class="panel">
+    <label>Task</label>
+    <input id="taskName" placeholder="e.g. Vaccinate calves">
+    <label>Due date</label>
+    <input id="taskDate" type="date">
+    <label>Category</label>
+    <select id="taskCategory"><option>Livestock</option><option>Crops</option><option>Vaccination</option><option>Breeding</option><option>Equipment</option><option>Other</option></select>
+    <button class="action" onclick="addTask()">Save Task</button>
+  </div>
+  <div class="panel"><h3>Upcoming Tasks</h3><div id="taskList"></div></div>
+</section>
+
+<section id="finance" class="page">
+  <h2>Farm Finance</h2>
+  <div class="cards">
+    <div class="card">Income<strong id="incomeTotal">$0.00</strong></div>
+    <div class="card">Expenses<strong id="expenseTotal">$0.00</strong></div>
+    <div class="card">Net<strong id="netTotal">$0.00</strong></div>
+  </div>
+  <div class="panel">
+    <label>Transaction</label>
+    <select id="moneyType"><option>Income</option><option>Expense</option></select>
+    <label>Amount (USD)</label>
+    <input id="moneyAmount" type="number" min="0.01" step="0.01">
+    <label>Description</label>
+    <input id="moneyDescription" placeholder="e.g. Sold maize, bought feed">
+    <label>Date</label>
+    <input id="moneyDate" type="date">
+    <button class="action" onclick="addMoney()">Save Transaction</button>
+  </div>
+  <div class="panel"><h3>Transactions</h3><div id="moneyList"></div></div>
+</section>
+</main>
+
+<footer>Smart Farmer ZW Pro • Built for Zimbabwe Farmers • logo.png in root</footer>
+
+<script>
+const DBKEY='smart_farmer_zw_records_v1';
+let db={animals:[],breeding:[],crops:[],tasks:[],money:[]};
+try{const s=localStorage.getItem(DBKEY);if(s)db={...db,...JSON.parse(s)};}catch(e){}
+function save(){localStorage.setItem(DBKEY,JSON.stringify(db));render();}
+function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');if(btn)btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function value(id){return document.getElementById(id).value.trim();}
+function addAnimal(){const n=Number(value('animalNumber'));if(!n||n<1){alert('Enter valid number');return;}db.animals.push({type:value('animalType'),breed:value('breed')||'Not specified',number:n,notes:value('animalNotes'),date:new Date().toISOString()});save();document.getElementById('breed').value='';document.getElementById('animalNotes').value='';}
+function addRecord(){if(!value('breedAnimal')||!value('breedDate')){alert('Enter animal ID and date');return;}db.breeding.push({animal:value('breedAnimal'),type:value('breedType'),date:value('breedDate'),notes:value('breedNotes')});save();document.getElementById('breedNotes').value='';}
+function addCrop(){if(!value('fieldName')){alert('Enter field name');return;}db.crops.push({type:value('cropType'),field:value('fieldName'),area:value('fieldArea'),date:value('plantDate'),notes:value('cropNotes')});save();}
+function addTask(){if(!value('taskName')||!value('taskDate')){alert('Enter task and date');return;}db.tasks.push({name:value('taskName'),date:value('taskDate'),category:value('taskCategory'),done:false});save();}
+function addMoney(){const a=Number(value('moneyAmount'));if(!a||!value('moneyDescription')){alert('Enter amount and description');return;}db.money.push({type:value('moneyType'),amount:a,description:value('moneyDescription'),date:value('moneyDate')||new Date().toISOString().slice(0,10)});save();document.getElementById('moneyAmount').value='';document.getElementById('moneyDescription').value='';}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function list(id,items,fmt,fn){const el=document.getElementById(id);if(!items.length){el.innerHTML='<p class="small">No records yet.</p>';return;}el.innerHTML=items.map((it,i)=>'<div class="item">'+fmt(it,i)+' <button class="action secondary" onclick="'+fn+'('+i+')">Delete</button></div>').join('');}
+function removeRecord(g,i){if(!confirm('Delete?'))return;db[g].splice(i,1);save();}
+function toggleTask(i){db.tasks[i].done=!db.tasks[i].done;save();}
+function money(n){return '$'+Number(n||0).toFixed(2);}
+function render(){document.getElementById('animalCount').textContent=db.animals.reduce((n,a)=>n+Number(a.number||0),0);document.getElementById('cropCount').textContent=db.crops.length;document.getElementById('taskCount').textContent=db.tasks.filter(t=>!t.done).length;const inc=db.money.filter(x=>x.type==='Income').reduce((n,x)=>n+x.amount,0);const exp=db.money.filter(x=>x.type==='Expense').reduce((n,x)=>n+x.amount,0);const net=inc-exp;document.getElementById('balance').textContent=money(net);document.getElementById('incomeTotal').textContent=money(inc);document.getElementById('expenseTotal').textContent=money(exp);document.getElementById('netTotal').textContent=money(net);list('animalList',db.animals,a=>'<b>'+esc(a.type)+'</b> × '+a.number+'<br>Breed: '+esc(a.breed)+'<br>'+esc(a.notes),'removeAnimal');list('breedingList',db.breeding,a=>'<b>'+esc(a.type)+'</b> — '+esc(a.animal)+'<br>Date: '+esc(a.date)+'<br>'+esc(a.notes),'removeBreeding');list('cropList',db.crops,c=>'<b>'+esc(c.type)+'</b> — '+esc(c.field)+'<br>Area: '+esc(c.area||'—')+' ha<br>Planting: '+esc(c.date||'—')+'<br>'+esc(c.notes),'removeCrop');list('taskList',db.tasks,(t,i)=>'<b>'+(t.done?'✓ ':'')+esc(t.name)+'</b><br>'+esc(t.category)+' • Due: '+esc(t.date)+'<br><button class="action secondary" onclick="toggleTask('+i+')">'+(t.done?'Mark incomplete':'Mark complete')+'</button>','removeTask');list('moneyList',db.money,m=>'<b>'+esc(m.type)+'</b>: '+money(m.amount)+'<br>'+esc(m.description)+' • '+esc(m.date),'removeMoney');}
+function removeAnimal(i){removeRecord('animals',i)}function removeBreeding(i){removeRecord('breeding',i)}function removeCrop(i){removeRecord('crops',i)}function removeTask(i){removeRecord('tasks',i)}function removeMoney(i){removeRecord('money',i)}
+document.getElementById('breedDate').value=new Date().toISOString().slice(0,10);
+document.getElementById('moneyDate').value=new Date().toISOString().slice(0,10);
+render();
+</script>
+</body>
+</html>
